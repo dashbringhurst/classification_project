@@ -26,6 +26,16 @@ def prep_telco():
     telco['tech_support'] = telco.tech_support.str.replace('No internet service', 'No')
     telco['total_charges'] = telco.total_charges.str.replace('$','').str.replace(',','').str.replace(' ','').fillna(0)
     telco['total_charges'] = pd.to_numeric(telco.total_charges)
+    telco['online_security'] = telco.online_security.map({'Yes': 1, 'No': 0})
+    telco['online_backup'] = telco.online_backup.map({'Yes': 1, 'No': 0})
+    telco['device_protection'] = telco.device_protection.map({'Yes': 1, 'No': 0})
+    telco['tech_support'] = telco.tech_support.map({'Yes': 1, 'No': 0})
+    telco['streaming_tv'] = telco.streaming_tv.map({'Yes': 1, 'No': 0})
+    telco['streaming_movies'] = telco.streaming_movies.map({'Yes': 1, 'No': 0})
+    # create a new column called 'extras' that contains the number of extra services each customer has
+    telco['extras'] = telco.online_backup + telco.online_security + telco.device_protection + telco.tech_support
+    # create a new column called 'streaming' that contains the number of streaming services each customer has
+    telco['streaming'] = telco.streaming_tv + telco.streaming_movies
     return telco
 
 def split_data(df, column):
