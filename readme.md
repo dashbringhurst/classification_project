@@ -98,6 +98,3 @@
     - Get the customers to stay for over one year; customers are most likely to churn within the first year of service
 
 - If I had more time, I would search the data for more intricate relationships between features that are indicative of churn. I would also tune the models for increased recall and precision for churn.
-
-
-
