@@ -19,7 +19,7 @@ def new_telco_data():
                 """
     
     # Read in DataFrame from Codeup db.
-    df = pd.read_sql(sql_query, acquire.get_connection('telco_churn'))
+    df = pd.read_sql(sql_query, get_connection('telco_churn'))
     
     return df
 
