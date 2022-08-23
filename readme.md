@@ -7,16 +7,16 @@
 
 #### Data Dictionary
 
-- payment_type_id: manual payments or automatic payments; 1 = electronic check, 2 = mailed check, 3 = bank transfer (automatic), 4 = credit card (automatic)
-- internet_service_type_id: 1 = DSL, 2 = Fiber optic, 3 = None
-- contract_type_id: 1 = month-to-month, 2 = one year, 3 = two year
+- payment_type_id: manual payments or automatic payments; 1 = electronic check, 2 = mailed check, 3 = bank transfer (automatic), 4 = credit card (automatic); (int)
+- internet_service_type_id: 1 = DSL, 2 = Fiber optic, 3 = None (int)
+- contract_type_id: 1 = month-to-month, 2 = one year, 3 = two year (int)
 - customer_id: unique identifier for each customer (string)
-- gender: customer's gender, encoded; 1 = Male, 0 = Female
-- senior_citizen: encoded values for senior citizen status; 0 = not senior citizen, 1 = is senior citizen
-- partner: whether or not the customer has a partner, encoded; 1 = Yes, 0 = No
-- dependents: whether or not the customer has at least one dependent, encoded; 1 = Yes, 0 = No
+- gender: customer's gender, encoded; 1 = Male, 0 = Female (int)
+- senior_citizen: encoded values for senior citizen status; 0 = not senior citizen, 1 = is senior citizen (int)
+- partner: whether or not the customer has a partner, encoded; 1 = Yes, 0 = No (int)
+- dependents: whether or not the customer has at least one dependent, encoded; 1 = Yes, 0 = No (int)
 - tenure: number of months the customer has been with Telco (int)
-- phone_service: does the customer have phone service, encoded; 1 = Yes, 0 = No
+- phone_service: does the customer have phone service, encoded; 1 = Yes, 0 = No (int)
 - multiple_lines: does the customer have more than one line, Yes or No (string)
 - online_security: does the customer have online security through Telco, Yes or No (string)
 - online_backup: does the customer have online backup service, Yes or No (string)
@@ -24,13 +24,13 @@
 - tech_support: does the customer have tech support service, Yes or No (string)
 - streaming_tv: does the customer have streaming tv service, Yes or No (string)
 - streaming_movies: does the customer have streaming movie service, Yes or No (string)
-- paperless_billing: is the customer signed up for paperless billing, encoded; 1 = Yes, 0 = No
+- paperless_billing: is the customer signed up for paperless billing, encoded; 1 = Yes, 0 = No (int)
 - monthly_charges: the current monthly charge per customer (float)
 - total_charges: total charges per customer (float)
-- churn: encoded value for whether or not a customer has churned; 0 = No, 1 = Yes
+- churn: encoded value for whether or not a customer has churned; 0 = No, 1 = Yes (int)
 - contract_type: string values corresponding to contract_type_id (Month-to-month, One year, Two year)
 - internet_service_type: string values corresponding to internet_service_type_id
-- payment_type: whether the customer uses automatic ('auto') or manual ('manual') payment
+- payment_type: whether the customer uses automatic ('auto') or manual ('manual') payment (string)
 
 #### Project Planning
 
@@ -51,6 +51,7 @@
 - Test and evaluate the model:
     - Use the model on the test set and evaluate its performance (classification report, confusion matrix, etc.)
     - Visualize the data using an array of probabilities on the test set
+- Document key findings and takeaways, answer the questions
 - Create a final report
 
 #### How to Reproduce this Project
@@ -85,6 +86,18 @@
 - Document each step of the process and your findings.
 
 #### Key Findings, Recommendations, and Takeaways
+
+- After running four models on my train and validate sets, I decided to use the random forest model because it provided the highest accuracy overall. The difference in accuracy was minimal between the models, however. I used the ten most significant features for customer churn (tenure, monthly charges, contract type, payment type, paperless billing, extra services, senior citizen, dependents, partner). I selected a maximum depth of 14 and a minimum sample leaf size of 14. The accuracy of the model on the test set was 82 percent.
+
+- Takeaways: the biggest drivers of churn are monthly charges, tenure, and contract type. Customers with low monthly charges, high tenure, and a two-year contract have the lowest likelihood of churn. The models all performed similarly for accuracy, but none of the models performed above baseline for recall. If Telco wants to predict customers who actually churn, I would recommend a different model or retraining the selected model for increased recall.
+
+- Recommendations for Telco to improve churn:
+    - Get the customers into a contract; the two-year contract customers had the lowest amount of churn, followed by one-year contracts. Month-to-month customers churned more than both contracts combined.
+    - Increase the number of extra services per customer; customers with 4 extra services had a much lower rate of churn than customers with no extra services
+    - Keep the monthly charges below 60 dollars if possible; customers above the mean monthly charge are more likely to churn
+    - Get the customers to stay for over one year; customers are most likely to churn within the first year of service
+
+- If I had more time, I would search the data for more intricate relationships between features that are indicative of churn. I would also tune the models for increased recall and precision for churn.
 
 
 
